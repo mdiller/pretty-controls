@@ -14,17 +14,19 @@
 				:max="1000">
 			</numerical-input>
 			Value: {{ my_number }}
-			<div class="checkbox">
-				<input type="checkbox" id="checkbox1" name="checkbox1" class="pretty"/>
-				<label for="checkbox1">Label1</label>
-			</div>
+			<select-color :value.sync="my_color">
+			</select-color>
+			<checkbox :value.sync="my_boolean">
+			</checkbox>
 		</div>
 	</div>
 </template>
 
 <script>
 import SelectSearch from './select-search.vue';
+import SelectColor from './select-color.vue';
 import NumericalInput from './numerical-input.vue';
+import Checkbox from './checkbox.vue';
 import axios from 'axios';
 
 export default {
@@ -33,7 +35,9 @@ export default {
 	data() {
 		return {
 			player: null,
-			my_number: 0
+			my_number: 0,
+			my_color: "#00ff00",
+			my_boolean: true
 		};
 	},
 	methods: {
@@ -67,7 +71,9 @@ export default {
 	},
 	components: {
 		SelectSearch,
-		NumericalInput
+		SelectColor,
+		NumericalInput,
+		Checkbox
 	}
 }
 </script>

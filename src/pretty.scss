@@ -31,64 +31,10 @@ $label-color: var(--label-color);
 
 $input-border: $input-border-size $input-border-style $input-border-color;
 $input-padding: $input-padding-tb $input-padding-rl;
+$input-line-height: calc(#{$input-height} - (#{$input-padding-tb} * 2) - (#{$input-border-size} * 2));
 
 * {
 	box-sizing: border-box;
-}
-
-.checkbox {
-	input {
-		&[type="checkbox"] {
-			opacity: 0;
-			position: absolute;
-			left: 0;
-			top: 0;
-			bottom: 0;
-			right: 0;
-		}
-
-		&[type="checkbox"] + label::after {
-			content: none;
-		}
-
-		&[type="checkbox"]:checked + label::after {
-			content: "";
-		}
-	}
-
-	label {
-		& {
-			position: relative;
-			display: inline-block;
-			padding-left: 24px;
-		}
-
-		&::before,
-		&::after {
-			display: inline-block;
-			position: absolute;
-			content: "";
-		}
-
-		&::before {
-			height: 16px;
-			width: 16px;
-			/*border: 1px solid;*/
-			top: 0px;
-			left: 0px;
-		}
-
-		&::after {
-			height: 5px;
-			width: 9px;
-			border-left: 2px solid #f6f6f7;
-			border-bottom: 2px solid #f6f6f7;
-			transform: rotate(-45deg);
-			
-			top: 4px;
-			left: 4px;
-		}
-	}
 }
 
 input:not([type="range"]):not([type="checkbox"]),
@@ -131,24 +77,25 @@ label {
 	color: $label-color;
 }
 
-:hover > .pretty-tooltip {
-	opacity: 1;
-	visibility: visible;
-}
-
 .pretty-tooltip {
-	visibility: hidden;
-	transition: 0.5s;
-	opacity: 0;
-	position: absolute;
-	white-space: nowrap;
-	padding: 8px 12px;
-	color: white;
-	background-color: #222;
-	border-radius: 3px;
-}
+	:hover > & {
+		opacity: 1;
+		visibility: visible;
+	}
 
-.pretty-tooltip {
+	& {
+		visibility: hidden;
+		transition: 0.5s;
+		opacity: 0;
+		position: absolute;
+		white-space: nowrap;
+		padding: 8px 12px;
+		color: white;
+		background-color: #222;
+		border-radius: 3px;
+		box-shadow: 5px solid #0006;
+	}
+
 	/* position specific */
 	& {
 		right: -7px;
@@ -179,3 +126,5 @@ input {
 .invalid {
 	box-shadow: 0 0 5px red inset;
 }
+
+/* darken on hover? */

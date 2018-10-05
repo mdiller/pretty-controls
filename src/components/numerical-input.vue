@@ -40,7 +40,6 @@ export default {
 				this.valid = false;
 				return;
 			}
-			console.log("hi");
 			this.$emit('update:value', this.val);
 			this.valid = true;
 		}
