@@ -1,8 +1,8 @@
 import Vue from "vue";
-import SelectSearch from './select-search.vue';
-import SelectColor from './select-color.vue';
-import NumericalInput from './numerical-input.vue';
-import Checkbox from './checkbox.vue';
+import SelectSearch from './components/select-search.vue';
+import SelectColor from './components/select-color.vue';
+import NumericalInput from './components/numerical-input.vue';
+import Checkbox from './components/checkbox.vue';
 
 const Components = {
 	SelectSearch,

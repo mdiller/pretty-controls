@@ -47,7 +47,7 @@ input {
 	cursor: pointer;
 }
 
-$box-size: calc(#{$input-height} * 0.75);
+$box-size: calc((#{$input-height} * 0.75) - (#{$input-border-size} * 2));
 
 div {
 	position: relative;

@@ -106,6 +106,7 @@ export default {
 	& {
 		position: relative;
 		text-align: left;
+		color: $input-color;
 	}
 
 	& > input {
@@ -135,6 +136,7 @@ export default {
 		max-height: 300px;
 		min-height: $input-height;
 		z-index: 100;
+		background: $input-background;
 	}
 }
 
@@ -170,10 +172,12 @@ export default {
 		white-space: nowrap;
 		width: 100%;
 		cursor: pointer;
+		background: $input-background;
+		transition: 0.25s;
 	}
 
 	&:hover {
-		background: #dddddd;
+		background: $options-hover;
 	}
 
 	& img {
@@ -185,8 +189,8 @@ export default {
 
 .select-search-status {
 	font-size: 14px;
-	padding: 2px;
-	color: #444444;
-	cursor: pointer;
+	padding: $input-padding;
+	line-height: $input-line-height;
+	color: #777777;
 }
 </style>

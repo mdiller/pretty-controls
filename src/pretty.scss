@@ -10,10 +10,12 @@
 
 	--input-background: white;
 	--input-color: black;
+	--options-hover: #bbb;
 
 	--form-background: white;
 
 	--label-color: black;
+	--heading-color: black;
 }
 
 /* this is so that I can make the actual css variables more specific */
@@ -26,8 +28,10 @@ $input-padding-tb: var(--input-padding-tb);
 $input-height: var(--input-height);
 $input-background: var(--input-background);
 $input-color: var(--input-color);
+$options-hover: var(--options-hover);
 $form-background: var(--form-background);
 $label-color: var(--label-color);
+$heading-color: var(--heading-color);
 
 $input-border: $input-border-size $input-border-style $input-border-color;
 $input-padding: $input-padding-tb $input-padding-rl;

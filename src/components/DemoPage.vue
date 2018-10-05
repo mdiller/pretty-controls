@@ -13,9 +13,10 @@
 				:value.sync="my_number"
 				:max="1000">
 			</numerical-input>
-			Value: {{ my_number }}
+			<br>
 			<select-color :value.sync="my_color">
 			</select-color>
+			<br>
 			<checkbox :value.sync="my_boolean">
 			</checkbox>
 		</div>
@@ -78,8 +79,35 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../pretty.scss";
+
+:root {
+	--input-border-color: #26282c;
+	--input-border-size: 1px;
+	--input-border-radius: 3px;
+
+	--input-padding: 6px 14px;
+	--input-height: 40px;
+
+	--input-background: #313339;
+	--input-color: #f6f6f7;
+	--options-hover: #222;
+
+	--form-background: #36393f;
+
+	--label-color: #b9bbbe;
+
+	--heading-color: #f0f0f0;
+}
+
+html {
+	background: $form-background;
+}
+
+h1 {
+	color: $heading-color;
+}
 
 #demosection {
 	width: 350px;
@@ -87,6 +115,11 @@ export default {
 	padding: 50px;
 	margin: auto;
 	text-align: left;
+	// color: $input-color;
+}
+
+input {
+	transition: 0.5s;
 }
 
 </style>

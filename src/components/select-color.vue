@@ -70,6 +70,7 @@ span {
 	font-size: 75%;
 	opacity: 0.75;
 	pointer-events: none;
+	color: $input-color;
 }
 
 
