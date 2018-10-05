@@ -6,29 +6,29 @@
 		<input
 			ref="input"
 			type="text"
-			:placeholder="focused ? 'Player Name or ID...' : ''"
+			:placeholder="focused ? placeholder : ''"
 			v-model="input"
 			@focus.prevent="startEdit"
 			@blur="endEdit"
 			@keyup.esc="endEdit"
-			@keyup.enter="selectedPlayer(players[0])">
+			@keyup.enter="selectedOption(options[0])">
 		<span class="select-search-current" v-if="!focused">
-			<img :src="current_player.avatarfull">
+			<img v-if="selected_option.icon" :src="selected_option.icon">
 			<span>
-				{{current_player.personaname || "Select a Player"}}
+				{{selected_option.text || placeholder}}
 			</span>
 		</span>
 		<div v-if="focused" @mousedown.prevent>
-			<div class="select-search-status" v-if="players.length == 0" @mousedown.prevent>
+			<div class="select-search-status" v-if="options.length == 0" @mousedown.prevent>
 				{{status}}
 			</div>
 			<div 
 				class="select-search-option" 
-				v-for="player in players" 
-				@click.stop="selectedPlayer(player)"
+				v-for="option in options" 
+				@click.stop="selectedOption(option)"
 				@mousedown.prevent>
-				<img :src="player.avatarfull">
-				{{player.personaname}}
+				<img v-if="option.icon" :src="option.icon">
+				{{option.text}}
 			</div>
 		</div>
 	</div>
@@ -39,25 +39,32 @@ import utils from '../utils.js';
 
 export default {
 	name: "select-search",
-	props: ['current_player'],
+	props: {
+		selected_option: {
+			type: Object,
+			required: true
+		},
+		options_func: {
+			type: Function, // callback(newoptions, optional newstatus)
+			required: true
+		},
+		placeholder: {
+			type: String,
+			default: () => ""
+		}
+	},
 	data() {
 		return {
 			input: "",
 			focused: false,
-			players: [],
+			options: [],
 			status: ""
 		}
 	},
 	watch: {
 		input() {
-			if (this.input.length == 0) {
-				this.players = [];
-				this.status = "";
-			}
-			else {
-				this.status = "Searching...";
-				this.debouncedSearchPlayers();
-			}
+			this.status = "Searching...";
+			this.debouncedRecreateOptions();
 		}
 	},
 	methods: {
@@ -70,36 +77,24 @@ export default {
 			this.input = '';
 			this.$refs.input.blur();
 		},
-		searchPlayers() {
+		recreateOptions() {
 			var self = this;
-
-			this.players = [
-				{
-					"account_id": 95211699,
-					"personaname": "Bilbo's Last Clean Doily",
-					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
-				},
-				{
-					"account_id": 95211699,
-					"personaname": "Bilbo's Last Clean Doily2",
-					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
-				},
-				{
-					"account_id": 95211699,
-					"personaname": "Bilbo's Last Clean Doily3",
-					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
+			this.options_func(this.input, (newoptions, newstatus) => {
+				if (newstatus != undefined) {
+					self.status = newstatus;
 				}
-			];
+				self.options = newoptions;
+			});
 		},
-		selectedPlayer(player) {
-			if (player) {
-				this.$emit('update:current_player', player);
+		selectedOption(option) {
+			if (option) {
+				this.$emit('update:selected_option', option);
 				this.endEdit();
 			}
 		}
 	},
 	created() {
-		this.debouncedSearchPlayers = utils.debounce(this.searchPlayers, 400);
+		this.debouncedRecreateOptions = utils.debounce(this.recreateOptions, 400);
 	}
 };
 </script>
