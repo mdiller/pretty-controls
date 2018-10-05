@@ -1,26 +1,3 @@
-# my-vue-library
+# Pretty Controls
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+A library of Vuejs controls designed to make life easier, especially for simple web apps that don't want to have to do a lot of work just to set things up.

@@ -8,12 +8,19 @@
 				:options_func="searchPlayers"
 				placeholder="Player Name or ID...">
 			</select-search>
+			<br>
+			<numerical-input
+				:value.sync="my_number"
+				:max="1000">
+			</numerical-input>
+			Value: {{ my_number }}
 		</div>
 	</div>
 </template>
 
 <script>
 import SelectSearch from './select-search.vue';
+import NumericalInput from './numerical-input.vue';
 import axios from 'axios';
 
 export default {
@@ -21,7 +28,8 @@ export default {
 	props: {},
 	data() {
 		return {
-			player: null
+			player: null,
+			my_number: 0
 		};
 	},
 	methods: {
@@ -54,7 +62,8 @@ export default {
 		};
 	},
 	components: {
-		SelectSearch
+		SelectSearch,
+		NumericalInput
 	}
 }
 </script>
@@ -65,5 +74,6 @@ export default {
 	height: 100%;
 	padding: 50px;
 	margin: auto;
+	text-align: left;
 }
 </style>

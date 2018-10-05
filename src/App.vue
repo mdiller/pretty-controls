@@ -39,4 +39,7 @@ body {
 	max-height: 100%;
 	max-width: 100%;
 }
+input {
+	width: 100%;
+}
 </style>
