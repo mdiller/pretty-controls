@@ -6,6 +6,7 @@
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
+    <select-search :current_player.sync="player"></select-search>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
@@ -31,10 +32,27 @@
 </template>
 
 <script>
+import SelectSearch from './select-search.vue';
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      player: null
+    };
+  },
+  created() {
+    this.player =  {
+      "account_id": 95211699,
+      "personaname": "Bilbo's Last Clean Doily",
+      "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
+    };
+  },
+  components: {
+    SelectSearch
   }
 }
 </script>
