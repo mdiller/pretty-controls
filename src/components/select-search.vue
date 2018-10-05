@@ -75,20 +75,20 @@ export default {
 
 			this.players = [
 				{
-			        "account_id": 95211699,
-			        "personaname": "Bilbo's Last Clean Doily",
-			        "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
-			    },
-			    {
-			        "account_id": 95211699,
-			        "personaname": "Bilbo's Last Clean Doily2",
-			        "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
-			    },
-			    {
-			        "account_id": 95211699,
-			        "personaname": "Bilbo's Last Clean Doily3",
-			        "avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
-			    }
+					"account_id": 95211699,
+					"personaname": "Bilbo's Last Clean Doily",
+					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
+				},
+				{
+					"account_id": 95211699,
+					"personaname": "Bilbo's Last Clean Doily2",
+					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
+				},
+				{
+					"account_id": 95211699,
+					"personaname": "Bilbo's Last Clean Doily3",
+					"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/26/26f39ad1bfbede565f1e7f0399b8afd40d74c74e_full.jpg"
+				}
 			];
 		},
 		selectedPlayer(player) {
@@ -104,10 +104,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .select-search {
 	position: relative;
-	max-width: 200px;
+	text-align: left;
 }
 
 .select-search > input {
