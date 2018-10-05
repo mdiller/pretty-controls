@@ -14,6 +14,10 @@
 				:max="1000">
 			</numerical-input>
 			Value: {{ my_number }}
+			<div class="checkbox">
+				<input type="checkbox" id="checkbox1" name="checkbox1" class="pretty"/>
+				<label for="checkbox1">Label1</label>
+			</div>
 		</div>
 	</div>
 </template>
@@ -68,7 +72,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../pretty.scss";
+
 #demosection {
 	width: 350px;
 	height: 100%;
@@ -76,4 +82,5 @@ export default {
 	margin: auto;
 	text-align: left;
 }
+
 </style>

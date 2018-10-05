@@ -1,5 +1,5 @@
 <template>
-	<input :class="{ valid: !valid }" type="number" v-model="val">
+	<input :class="{ invalid: !valid }" type="number" v-model="val">
 </template>
 
 <script>
@@ -40,6 +40,7 @@ export default {
 				this.valid = false;
 				return;
 			}
+			console.log("hi");
 			this.$emit('update:value', this.val);
 			this.valid = true;
 		}
@@ -58,12 +59,11 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-input {
-	transition: 0.5s all;
-	border: 1px solid black;
-}
+<style lang="scss" scoped>
+@import "../pretty.scss";
+
 .valid {
 	border: 1px solid red;
 }
+
 </style>

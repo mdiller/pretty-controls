@@ -1,0 +1,181 @@
+:root {
+	--input-border-color: #666;
+	--input-border-style: solid;
+	--input-border-size: 1px;
+	--input-border-radius: 5px;
+
+	--input-padding-tb: 6px; /* 4px 8px */
+	--input-padding-rl: 10px;
+	--input-height: 40px; /* 26px (if you go over 32, select button on ff doesnt look nice) */
+
+	--input-background: white;
+	--input-color: black;
+
+	--form-background: white;
+
+	--label-color: black;
+}
+
+/* this is so that I can make the actual css variables more specific */
+$input-border-color: var(--input-border-color);
+$input-border-style: var(--input-border-style);
+$input-border-size: var(--input-border-size);
+$input-border-radius: var(--input-border-radius);
+$input-padding-rl: var(--input-padding-rl);
+$input-padding-tb: var(--input-padding-tb);
+$input-height: var(--input-height);
+$input-background: var(--input-background);
+$input-color: var(--input-color);
+$form-background: var(--form-background);
+$label-color: var(--label-color);
+
+$input-border: $input-border-size $input-border-style $input-border-color;
+$input-padding: $input-padding-tb $input-padding-rl;
+
+* {
+	box-sizing: border-box;
+}
+
+.checkbox {
+	input {
+		&[type="checkbox"] {
+			opacity: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+
+		&[type="checkbox"] + label::after {
+			content: none;
+		}
+
+		&[type="checkbox"]:checked + label::after {
+			content: "";
+		}
+	}
+
+	label {
+		& {
+			position: relative;
+			display: inline-block;
+			padding-left: 24px;
+		}
+
+		&::before,
+		&::after {
+			display: inline-block;
+			position: absolute;
+			content: "";
+		}
+
+		&::before {
+			height: 16px;
+			width: 16px;
+			/*border: 1px solid;*/
+			top: 0px;
+			left: 0px;
+		}
+
+		&::after {
+			height: 5px;
+			width: 9px;
+			border-left: 2px solid #f6f6f7;
+			border-bottom: 2px solid #f6f6f7;
+			transform: rotate(-45deg);
+			
+			top: 4px;
+			left: 4px;
+		}
+	}
+}
+
+input:not([type="range"]):not([type="checkbox"]),
+.checkbox label::before,
+select {
+	border: $input-border;
+	border-radius: $input-border-radius;
+	background: $input-background;
+	color: $input-color;
+}
+
+input:not([type="range"]):not([type="checkbox"]):not([type="color"]),
+select {
+	display: block;
+	padding: $input-padding;
+	width: 100%;
+	min-height: $input-height;
+}
+
+select option {
+	background: $input-background;
+}
+
+input[type="range"] {
+	display: block;
+	border-radius: 5px;
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+input[type="color"] {
+	display: block;
+	padding: 0px;
+	width: 100%;
+	min-height: $input-height; /* 26px */
+}
+
+label {
+	color: $label-color;
+}
+
+:hover > .pretty-tooltip {
+	opacity: 1;
+	visibility: visible;
+}
+
+.pretty-tooltip {
+	visibility: hidden;
+	transition: 0.5s;
+	opacity: 0;
+	position: absolute;
+	white-space: nowrap;
+	padding: 8px 12px;
+	color: white;
+	background-color: #222;
+	border-radius: 3px;
+}
+
+.pretty-tooltip {
+	/* position specific */
+	& {
+		right: -7px;
+		top: 50%;
+		transform: translate(100%, -50%);
+	}
+
+	&::after {
+		content: " ";
+		position: absolute;
+		border-width: 5px;
+		border-style: solid;
+	}
+
+	/* position specific */
+	&::after {
+		top: 50%;
+		right: 100%;
+		border-color: transparent #222 transparent transparent;
+		margin-top: -5px;
+	}
+}
+
+input {
+	transition: 0.5s;
+}
+
+.invalid {
+	box-shadow: 0 0 5px red inset;
+}

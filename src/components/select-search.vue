@@ -11,7 +11,8 @@
 			@focus.prevent="startEdit"
 			@blur="endEdit"
 			@keyup.esc="endEdit"
-			@keyup.enter="selectedOption(options[0])">
+			@keyup.enter="selectedOption(options[0])"
+			:class="{ focused: focused }">
 		<span class="select-search-current" v-if="!focused">
 			<img v-if="selected_option.icon" :src="selected_option.icon">
 			<span>
@@ -99,27 +100,36 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../pretty.scss";
+
 .select-search {
 	position: relative;
 	text-align: left;
 }
 
 .select-search > input {
-	padding: 4px;
 	width: 100%;
-	position: relative
+	position: relative;
+	border-radius: $input-border-radius;
+}
+
+.select-search > input.focused {
+	width: 100%;
+	position: relative;
+	border-radius: $input-border-radius $input-border-radius 0 0;
 }
 
 .select-search-current {
 	pointer-events: none;
 	position: absolute;
-	left: 1px;
-	top: 1px;
-	right: 1px;
-	bottom: 1px;
+	left: $input-border-size;
+	top: $input-border-size;
+	right: $input-border-size;
+	bottom: $input-border-size;
+	border-radius: $input-border-radius;
 	white-space: nowrap;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .select-search-current img {
@@ -128,8 +138,11 @@ export default {
 
 .select-search-current span {
 	position: absolute;
-	left: 26px;
-	padding: 3px;
+	left: $input-height;
+	top: 0;
+	bottom: 0;
+	padding: $input-padding;
+	line-height: calc(#{$input-height} - (#{$input-padding-tb} * 2) - (#{$input-border-size} * 2));
 }
 
 .select-search > div {
@@ -138,12 +151,14 @@ export default {
 	top: 100%;
 	left: 0;
 	right: 0;
-	border: 1px solid black;
-	border-radius: 0 0 3px 3px;
+	border-right: $input-border;
+	border-left: $input-border;
+	border-bottom: $input-border;
+	border-radius: 0 0 $input-border-radius $input-border-radius;
 	overflow-y: auto;
 	overflow-x: hidden;
 	max-height: 300px;
-	min-height: 24px;
+	min-height: $input-height;
 }
 
 .select-search-option {
@@ -168,6 +183,5 @@ export default {
 	padding: 2px;
 	color: #444444;
 	cursor: pointer;
-	pointer-events: 
 }
 </style>
