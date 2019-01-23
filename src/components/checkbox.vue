@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<input type="checkbox" v-model="val"/>
+		<input type="checkbox" v-model="val">
 		<span v-if="value">
 		</span>
 	</div>

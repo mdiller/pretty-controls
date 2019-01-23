@@ -1,11 +1,11 @@
 {
-	"name": "my-vue-library",
-	"version": "0.1.0",
-	"private": true,
+	"name": "@dillerm/pretty-controls",
+	"version": "0.1.1",
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
+		"publish": "npm publish --access public",
 		"build-bundle": "vue-cli-service build --target lib --name pretty-controls src/library.js"
 	},
 	"dependencies": {
@@ -21,6 +21,14 @@
 		"style-loader": "^0.23.0",
 		"vue-template-compiler": "^2.5.17"
 	},
+	"main": "./dist/pretty-controls.common.js",
+	"files": [
+		"dist/*",
+		"src/*",
+		"public/*",
+		"*.json",
+		"*.js"
+	],
 	"eslintConfig": {
 		"root": true,
 		"env": {
