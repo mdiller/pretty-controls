@@ -1,6 +1,6 @@
 {
 	"name": "@dillerm/pretty-controls",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"scripts": {
 		"start": "vue-cli-service serve",
 		"build": "vue-cli-service build",
