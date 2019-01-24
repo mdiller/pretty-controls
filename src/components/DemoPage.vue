@@ -6,7 +6,15 @@
 			<select-search 
 				:selected_option.sync="player"
 				:options_func="searchPlayers"
+				:nullable="false"
 				placeholder="Player Name or ID...">
+			</select-search>
+			<br>
+			<select-search 
+				:selected_option.sync="fruit"
+				:options_func="searchFruits"
+				:debounce_delay="0"
+				placeholder="Pick a fruit...">
 			</select-search>
 			<br>
 			<numerical-input
@@ -36,6 +44,7 @@ export default {
 	data() {
 		return {
 			player: null,
+			fruit: null,
 			my_number: 0,
 			my_color: "#00ff00",
 			my_boolean: true
@@ -43,8 +52,8 @@ export default {
 	},
 	methods: {
 		searchPlayers(input, callback) {
-			if (input.length == "") {
-				callback([], "None Found");
+			if (input.length == 0) {
+				callback([]);
 				return;
 			}
 			axios.get(`https://api.opendota.com/api/search?q=${input}`)
@@ -57,9 +66,25 @@ export default {
 					callback(data, data.length == 0 ? "None Found" : undefined);
 				})
 				.catch(error => {
-					console.log("error on search");
+					console.log(`error on search: ${error}`);
 					callback([], "Error on Search");
 				});
+		},
+		searchFruits(input, callback) {
+			callback([
+				{
+					id: 0,
+					text: "Tomato"
+				},
+				{
+					id: 1,
+					text: "Apple"
+				},
+				{
+					id: 2,
+					text: "Strawberry"
+				}
+			]);
 		}
 	},
 	created() {

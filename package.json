@@ -1,8 +1,8 @@
 {
 	"name": "@dillerm/pretty-controls",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"scripts": {
-		"serve": "vue-cli-service serve",
+		"start": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
 		"publish": "npm publish --access public",
@@ -38,7 +38,10 @@
 			"plugin:vue/essential",
 			"eslint:recommended"
 		],
-		"rules": {},
+		"rules": {
+			"no-console": "off",
+			"vue/require-v-for-key": false
+		},
 		"parserOptions": {
 			"parser": "babel-eslint"
 		}

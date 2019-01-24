@@ -6,16 +6,16 @@
 		<input
 			ref="input"
 			type="text"
-			:placeholder="focused ? placeholder : ''"
+			:placeholder="(focused || !selected_option) ? placeholder : ''"
 			v-model="input"
 			@focus.prevent="startEdit"
 			@blur="endEdit"
 			@keyup.esc="endEdit"
 			@keyup.enter="selectedOption(options[0])"
 			:class="{ focused: focused }">
-		<span class="select-search-current" v-if="!focused">
+		<span class="select-search-current" v-if="!focused && selected_option">
 			<img v-if="selected_option.icon" :src="selected_option.icon">
-			<span>
+			<span :class="{ noicon: !selected_option.icon }">
 				{{selected_option.text || placeholder}}
 			</span>
 		</span>
@@ -24,14 +24,29 @@
 				{{status}}
 			</div>
 			<div 
-				class="select-search-option" 
-				v-for="option in options" 
+				:class="{ 'select-search-option': true, noicon: !option.icon }"
+				v-for="option in options"
 				@click.stop="selectedOption(option)"
 				@mousedown.prevent>
 				<img v-if="option.icon" :src="option.icon">
 				{{option.text}}
 			</div>
 		</div>
+		<svg 
+			v-if="!focused && selected_option && nullable" 
+			@click.stop="selectedOption(null)" 
+			class="select-search-clear" 
+			viewBox="0 0 24 24">
+			<path d="M 7 5 l 5,5 5,-5 2,2 -5,5 5,5 -2,2 -5,-5 -5,5 -2,-2 5,-5 -5,-5" />
+		</svg>
+		<svg
+			:class="{'select-search-down': true, expanded: focused }"
+			@mousedown.prevent.stop="!focused ? startEdit() : endEdit()"
+			@focus.stop
+			@click.stop
+			viewBox="0 0 18 18">
+			<path d="M 2 5 l 14 0 -7 8 Z" />
+		</svg>
 	</div>
 </template>
 
@@ -42,8 +57,10 @@ export default {
 	name: "select-search",
 	props: {
 		selected_option: {
-			type: Object,
-			required: true
+			required: true,
+			validator(value) {
+				return value == null || typeof(value) == "object";
+			}
 		},
 		options_func: {
 			type: Function, // callback(newoptions, optional newstatus)
@@ -52,6 +69,14 @@ export default {
 		placeholder: {
 			type: String,
 			default: ""
+		},
+		nullable: {
+			type: Boolean,
+			default: true
+		},
+		debounce_delay: {
+			type: Number,
+			default: 400
 		}
 	},
 	data() {
@@ -75,7 +100,7 @@ export default {
 		},
 		endEdit() {
 			this.focused = false;
-			this.input = '';
+			this.input = "";
 			this.$refs.input.blur();
 		},
 		recreateOptions() {
@@ -84,24 +109,32 @@ export default {
 				if (newstatus != undefined) {
 					self.status = newstatus;
 				}
+				else if (newoptions.length == 0) {
+					self.status = "None Found";
+				}
 				self.options = newoptions;
 			});
 		},
 		selectedOption(option) {
-			if (option) {
+			if (option !== undefined) {
 				this.$emit('update:selected_option', option);
 				this.endEdit();
 			}
 		}
 	},
 	created() {
-		this.debouncedRecreateOptions = utils.debounce(this.recreateOptions, 400);
+		this.debouncedRecreateOptions = utils.debounce(this.recreateOptions, this.debounce_delay);
+		this.debouncedRecreateOptions();
 	}
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../pretty.scss";
+
+$button-icon-side-padding: 5px;
+$button-icon-size: 20px;
+
 .select-search {
 	& {
 		position: relative;
@@ -164,6 +197,15 @@ export default {
 		bottom: 0;
 		padding: $input-padding;
 		line-height: $input-line-height;
+
+		right: calc((#{$button-icon-size} * 2) + #{$button-icon-side-padding});
+		padding-right: 0px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		&.noicon {
+			left: 0;
+		}
 	}
 }
 .select-search-option {
@@ -171,6 +213,7 @@ export default {
 		float: left;
 		white-space: nowrap;
 		width: 100%;
+		height: 32px;
 		cursor: pointer;
 		background: $input-background;
 		transition: 0.25s;
@@ -183,7 +226,12 @@ export default {
 	& img {
 		vertical-align: middle;
 		width: 32px;
-		height: 32px;
+		height: 100%;
+	}
+
+	&.noicon {
+		line-height: 32px;
+		padding-left: 8px;
 	}
 }
 
@@ -192,5 +240,34 @@ export default {
 	padding: $input-padding;
 	line-height: $input-line-height;
 	color: #777777;
+}
+
+svg {
+	width: $button-icon-size;
+	height: $button-icon-size;
+	position: absolute;
+	top: calc((#{$input-height} - #{$button-icon-size}) / 2);
+	right: 0;
+	cursor: pointer;
+	fill: $input-color;
+	opacity: 0.75;
+	transition: 0.25s;
+
+	&.select-search-down {
+		right: $button-icon-side-padding;
+
+		&.expanded {
+			transform: rotate(180deg);
+		}
+	}
+
+	&.select-search-clear {
+		right: calc(#{$button-icon-size} + #{$button-icon-side-padding});
+
+		&:hover {
+			fill: red;
+			opacity: 1;
+		}
+	}
 }
 </style>
